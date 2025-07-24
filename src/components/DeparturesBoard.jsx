@@ -61,7 +61,7 @@ function DeparturesBoard() {
   const pageTrackerRef = useRef({ current: 1, total: 1 });
   
   const apiURL = 'https://fids-api.vercel.app';
-  const flightsPerPage = 10;
+  const flightsPerPage = 9;
 
   // Fetch flights from API
   const fetchFlights = async (page = 1, isInitialLoad = false) => {
