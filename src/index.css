@@ -1,12 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@600;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom airport display colors */
-.bg-airport-blue {
-  background-color: #050572;
-}
-
-.bg-airport-blue-light {
-  background-color: #0606a0;
+body {
+  background: #191d23;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
