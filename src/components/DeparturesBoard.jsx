@@ -29,17 +29,19 @@ function DeparturesBoard() {
   const tableContainerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   
-  const apiURL = 'http://127.0.0.1:8000';
+  const apiURL = 'https://fids-api.vercel.app';
   const flightsPerPage = 10; // Number of flights per page
 
   // Fetch flights from API
-  const fetchFlights = async (page = 1) => {
-    setLoading(true);
+  const fetchFlights = async (page = 1, showLoading = true) => {
+    if (showLoading) setLoading(true);
+    
     try {
       const response = await fetch(`${apiURL}/api/flights?page=${page}&per_page=${flightsPerPage}`);
       const result = await response.json();
       
       if (result.success) {
+        // Only update state after successful fetch - keeps old data visible during transition
         setCurrentFlights(result.flights);
         setCurrentPage(result.pagination.current_page);
         setTotalPages(result.pagination.total_pages);
@@ -48,10 +50,13 @@ function DeparturesBoard() {
         setError('Failed to fetch flight data');
       }
     } catch (err) {
-      setError('API connection failed. Make sure the Python server is running.');
+      // Only show error on initial load, not during auto-refresh
+      if (showLoading) {
+        setError('API connection failed. Make sure the Python server is running.');
+      }
       console.error('API Error:', err);
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
