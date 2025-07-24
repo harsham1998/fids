@@ -45,6 +45,7 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #ffc600 #191d23;
+  transition: opacity 0.1s ease;
 }
 
 .table-container::-webkit-scrollbar {
@@ -145,6 +146,15 @@ tbody td:first-child {
   border-radius: 3px;
   display: block;
   margin: 0 auto;
+  transition: opacity 0.2s ease-in-out;
+  background: #2d3748;
+}
+
+.airline-logo-placeholder {
+  width: 40px;
+  height: 28px;
+  margin: 0 auto;
+  /* Empty placeholder for airlines without logos */
 }
 
 /* Airline Name */
@@ -275,6 +285,42 @@ tbody td:last-child {
   to {
     opacity: 1;
   }
+}
+
+/* Smooth flight row transitions */
+.flight-row {
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.flight-row td {
+  transition: all 0.15s ease-in-out;
+}
+
+/* Smooth table updates */
+.table-container {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffc600 #191d23;
+  transition: opacity 0.1s ease;
+}
+
+/* Add smooth animation for new data */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flight-row {
+  animation: slideIn 0.3s ease-out;
 }
 
 /* Responsive */
