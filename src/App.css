@@ -69,13 +69,13 @@ table.departure-table {
   border-collapse: separate;
   border-spacing: 0;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   table-layout: fixed;
 }
 
 thead {
   background: #191d23;
-  font-size: 1rem;
+  font-size: 1.1rem;
   letter-spacing: 1.3px;
   position: sticky;
   top: 0;
@@ -110,20 +110,22 @@ tbody tr:not(:last-child) {
 }
 
 tbody td {
-  padding: 14px 0 14px 0;
+  padding: 16px 0 16px 0;
   font-weight: 700;
+  font-size: 1.1rem;
   letter-spacing: 1px;
 }
 
 /* Column widths */
-thead th:nth-child(1), tbody td:nth-child(1) { width: 8%; text-align: center; } /* Logo */
+thead th:nth-child(1), tbody td:nth-child(1) { width: 7%; text-align: center; } /* Logo */
 thead th:nth-child(2), tbody td:nth-child(2) { width: 15%; text-align: left; } /* Airline */
-thead th:nth-child(3), tbody td:nth-child(3) { width: 12%; text-align: center; } /* Flight */
-thead th:nth-child(4), tbody td:nth-child(4) { width: 20%; text-align: left; } /* Destination */
-thead th:nth-child(5), tbody td:nth-child(5) { width: 10%; text-align: center; } /* STD */
-thead th:nth-child(6), tbody td:nth-child(6) { width: 10%; text-align: center; } /* EST */
-thead th:nth-child(7), tbody td:nth-child(7) { width: 10%; text-align: center; } /* Gate */
-thead th:nth-child(8), tbody td:nth-child(8) { width: 15%; text-align: center; } /* Status */
+thead th:nth-child(3), tbody td:nth-child(3) { width: 10%; text-align: center; } /* Flight */
+thead th:nth-child(4), tbody td:nth-child(4) { width: 12%; text-align: left; } /* Destination */
+thead th:nth-child(5), tbody td:nth-child(5) { width: 8%; text-align: center; } /* Code */
+thead th:nth-child(6), tbody td:nth-child(6) { width: 10%; text-align: center; } /* STD */
+thead th:nth-child(7), tbody td:nth-child(7) { width: 10%; text-align: center; } /* EST */
+thead th:nth-child(8), tbody td:nth-child(8) { width: 10%; text-align: center; } /* Gate */
+thead th:nth-child(9), tbody td:nth-child(9) { width: 18%; text-align: center; } /* Status */
 
 /* Reset individual column styles to use global alignment */
 tbody td {
