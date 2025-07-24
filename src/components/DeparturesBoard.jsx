@@ -29,7 +29,7 @@ function DeparturesBoard() {
   const tableContainerRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   
-  const apiURL = 'http://127.0.0.1:8000';
+  const apiURL = 'https://fids-api.vercel.app';
   const flightsPerPage = 10; // Number of flights per page
 
   // Fetch flights from API
