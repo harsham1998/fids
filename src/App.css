@@ -42,6 +42,56 @@
   margin-top: 2px;
 }
 
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.status-indicator {
+  font-size: 1.2rem;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.connected {
+  animation: none;
+}
+
+.status-indicator.error {
+  animation: blink 1s infinite;
+}
+
+.status-text {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.pagination-info {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.page-count {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
 .table-container {
   flex: 1;
   overflow-y: auto;
