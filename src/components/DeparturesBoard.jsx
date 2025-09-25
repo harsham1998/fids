@@ -451,7 +451,7 @@ function DeparturesBoard() {
                   SCAN QR CODE
                 </div>
                 <img
-                  src="/QR.jpeg"
+                  src="/QR-New.jpeg"
                   alt="QR Code"
                   style={{
                     width: '180px',
