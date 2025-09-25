@@ -153,14 +153,14 @@ function DeparturesBoard() {
         // Transform the data to match our component format
         const flights = result.JsonData.Data.map(flight => ({
           id: flight.Id,
-          airline: flight.Airline,
+          airline: flight.Airline.toUpperCase(),
           flight: flight.FlightNumber,
           destination: flight.Destination,
           destinationCode: flight.DestinationCode,
           std: formatFlightTime(flight.ScheduledDeparture),
           etd: flight.ActualDeparture ? formatFlightTime(flight.ActualDeparture) : formatFlightTime(flight.ScheduledDeparture),
           gate: flight.Gate,
-          status: flight.Status,
+          status: flight.Status.toUpperCase(),
           statusClass: flight.Status.toLowerCase().replace(/\s+/g, '-')
         }));
 
@@ -387,7 +387,7 @@ function DeparturesBoard() {
                         })()}
                       </td>
                       <td>{flight.airline}</td>
-                      <td>{flight.flight}</td>
+                      <td style={{ color: '#fff' }}>{flight.flight}</td>
                       <td>{flight.destination}</td>
                       <td>{flight.destinationCode}</td>
                       <td>{flight.std}</td>
