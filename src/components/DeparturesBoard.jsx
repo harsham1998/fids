@@ -426,8 +426,22 @@ function DeparturesBoard() {
               {/* Video Advertisement Section */}
               <div className="video-ad-content" style={{
                 flex: '2',
+                position: 'relative',
                 backgroundColor: '#2a2a2a'
               }}>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                >
+                  <source src="/sample-ad.mp4" type="video/mp4" />
+                </video>
               </div>
 
               {/* QR Code Section */}
