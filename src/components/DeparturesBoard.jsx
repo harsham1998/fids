@@ -426,45 +426,8 @@ function DeparturesBoard() {
               {/* Video Advertisement Section */}
               <div className="video-ad-content" style={{
                 flex: '2',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
+                backgroundColor: '#2a2a2a'
               }}>
-{/* Advertisement Placeholder - Always show since video may not load on Vercel */}
-                <div className="ad-placeholder" style={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  color: '#fff',
-                  textAlign: 'center',
-                  padding: '15px',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                }}>
-                  <div style={{
-                    fontSize: '48px',
-                    marginBottom: '10px',
-                    animation: 'pulse 2s infinite'
-                  }}>📺</div>
-                  <div style={{
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    color: '#ffc600',
-                    textShadow: '0 0 5px rgba(255, 198, 0, 0.5)'
-                  }}>
-                    VIDEO ADS
-                  </div>
-                  <div style={{
-                    fontSize: '10px',
-                    color: '#ccc',
-                    marginTop: '5px'
-                  }}>
-                    Your advertisement here
-                  </div>
-                </div>
               </div>
 
               {/* QR Code Section */}
