@@ -431,39 +431,39 @@ function DeparturesBoard() {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                  onError={(e) => {
-                    // Fallback to placeholder if video fails to load
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
-                >
-                  <source src="/sample-ad.mp4" type="video/mp4" />
-                  <source src="/sample-ad.webm" type="video/webm" />
-                </video>
-
-                {/* Fallback placeholder when video is not available */}
+{/* Advertisement Placeholder - Always show since video may not load on Vercel */}
                 <div className="ad-placeholder" style={{
-                  display: 'none',
                   width: '100%',
                   height: '100%',
+                  display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexDirection: 'column',
                   color: '#fff',
                   textAlign: 'center',
-                  padding: '15px'
+                  padding: '15px',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                 }}>
-                  <div style={{ fontSize: '48px' }}>📺</div>
+                  <div style={{
+                    fontSize: '48px',
+                    marginBottom: '10px',
+                    animation: 'pulse 2s infinite'
+                  }}>📺</div>
+                  <div style={{
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: '#ffc600',
+                    textShadow: '0 0 5px rgba(255, 198, 0, 0.5)'
+                  }}>
+                    VIDEO ADS
+                  </div>
+                  <div style={{
+                    fontSize: '10px',
+                    color: '#ccc',
+                    marginTop: '5px'
+                  }}>
+                    Your advertisement here
+                  </div>
                 </div>
               </div>
 
