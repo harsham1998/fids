@@ -85,6 +85,50 @@ function FlightInfo() {
     }
   };
 
+  const formatDateTime = (dateString) => {
+    if (!dateString) return 'N/A';
+
+    try {
+      // Handle the API format: "09-25-2025 11:00:00"
+      // Convert MM-DD-YYYY to YYYY-MM-DD for better compatibility
+      const parts = dateString.split(' ');
+      if (parts.length === 2) {
+        const datePart = parts[0]; // "09-25-2025"
+        const timePart = parts[1]; // "11:00:00"
+
+        const dateComponents = datePart.split('-');
+        if (dateComponents.length === 3) {
+          // Convert MM-DD-YYYY to YYYY-MM-DD
+          const isoDate = `${dateComponents[2]}-${dateComponents[0]}-${dateComponents[1]}T${timePart}`;
+          const date = new Date(isoDate);
+
+          if (!isNaN(date.getTime())) {
+            return date.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false
+            });
+          }
+        }
+      }
+
+      // Fallback: try direct parsing
+      const date = new Date(dateString);
+      if (!isNaN(date.getTime())) {
+        return date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        });
+      }
+
+      return 'N/A';
+    } catch (error) {
+      console.error('Date parsing error:', error, dateString);
+      return 'N/A';
+    }
+  };
+
   if (showSearch) {
     return (
       <div style={{
@@ -302,7 +346,7 @@ function FlightInfo() {
                 DEPARTURE
               </div>
               <div style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
-                {flightData?.ScheduledDeparture ? new Date(flightData.ScheduledDeparture).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'}) : 'N/A'}
+                {formatDateTime(flightData?.ScheduledDeparture)}
               </div>
             </div>
 
@@ -403,7 +447,7 @@ function FlightInfo() {
                 ARRIVAL
               </div>
               <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>
-                {flightData?.ScheduledArrival ? new Date(flightData.ScheduledArrival).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'}) : 'N/A'}
+                {formatDateTime(flightData?.ScheduledArrival)}
               </div>
             </div>
           </div>
