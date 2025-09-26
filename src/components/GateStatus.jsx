@@ -182,223 +182,268 @@ function GateStatus() {
     );
   }
 
+  // Get airline logo similar to DeparturesBoard
+  const getAirlineLogo = (airlineName) => {
+    if (!airlineName) return null;
+
+    const name = airlineName.toLowerCase();
+
+    // This would need the actual logo imports, for now return placeholder
+    // You can import the airline logos from DeparturesBoard component
+    return null;
+  };
+
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#0f1114',
+      backgroundColor: '#000',
       color: '#fff',
       fontFamily: 'Arial, sans-serif',
       display: 'flex',
       flexDirection: 'column'
     }}>
-      {/* Header */}
+      {/* Blue Header Area for Logo */}
       <div style={{
-        background: '#ffc600',
-        color: '#000',
-        padding: '20px',
+        background: 'linear-gradient(135deg, #4169E1, #1E90FF)',
+        height: '120px',
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative'
       }}>
-        <h1 style={{
-          fontSize: '2rem',
-          margin: 0,
-          fontWeight: 'bold'
-        }}>
-          GATE STATUS
-        </h1>
+        {/* Airline Logo Area */}
         <div style={{
-          fontSize: '1.5rem',
-          fontWeight: 'bold'
+          position: 'absolute',
+          left: '40px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px'
         }}>
-          {formatTime(currentTime)}
+          {getAirlineLogo(flightData?.Airline) ? (
+            <img
+              src={getAirlineLogo(flightData?.Airline)}
+              alt={flightData?.Airline}
+              style={{
+                height: '60px',
+                objectFit: 'contain'
+              }}
+            />
+          ) : (
+            <div style={{
+              width: '100px',
+              height: '60px',
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '14px',
+              color: '#fff'
+            }}>
+              AIRLINE LOGO
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <div style={{
         flex: 1,
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px',
-        textAlign: 'center'
+        backgroundColor: '#000'
       }}>
-        {/* Flight Number */}
+        {/* Left Panel - Destination & Time */}
         <div style={{
-          fontSize: '3rem',
-          fontWeight: 'bold',
-          color: '#ffc600',
-          marginBottom: '20px',
-          letterSpacing: '2px'
-        }}>
-          {flightData?.FlightNumber}
-        </div>
-
-        {/* Route */}
-        <div style={{
+          flex: '1',
+          padding: '60px 40px',
           display: 'flex',
-          alignItems: 'center',
-          gap: '30px',
-          marginBottom: '40px',
-          fontSize: '2rem',
-          color: '#fff'
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}>
-          <div>
-            <div style={{ fontWeight: 'bold' }}>{flightData?.Origin}</div>
-            <div style={{ fontSize: '1rem', color: '#ccc' }}>({flightData?.OriginCode})</div>
-          </div>
-          <div style={{ fontSize: '3rem', color: '#ffc600' }}>✈</div>
-          <div>
-            <div style={{ fontWeight: 'bold' }}>{flightData?.Destination}</div>
-            <div style={{ fontSize: '1rem', color: '#ccc' }}>({flightData?.DestinationCode})</div>
-          </div>
-        </div>
-
-        {/* Flight Status - Large Centered */}
-        <div style={{
-          backgroundColor: getStatusBackground(flightData?.Status),
-          border: `3px solid ${getStatusColor(flightData?.Status)}`,
-          borderRadius: '20px',
-          padding: '60px 80px',
-          marginBottom: '40px',
-          minWidth: '400px'
-        }}>
+          {/* Destination */}
           <div style={{
             fontSize: '4rem',
             fontWeight: 'bold',
-            color: getStatusColor(flightData?.Status),
-            letterSpacing: '3px',
-            textTransform: 'uppercase'
+            color: '#FFC600',
+            marginBottom: '20px',
+            letterSpacing: '2px'
           }}>
-            {flightData?.Status || 'UNKNOWN'}
+            {flightData?.Destination || 'Destination'}
+          </div>
+
+          {/* Departure Time */}
+          <div style={{
+            fontSize: '6rem',
+            fontWeight: 'bold',
+            color: '#87CEEB',
+            fontFamily: 'monospace'
+          }}>
+            {formatDateTime(flightData?.ScheduledDeparture)}
           </div>
         </div>
 
-        {/* Flight Details Grid */}
+        {/* Center Panel - Status Message */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '40px',
-          width: '100%',
-          maxWidth: '800px'
+          flex: '1.5',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '40px'
         }}>
           <div style={{
-            backgroundColor: '#2a2a2a',
-            padding: '30px',
-            borderRadius: '15px',
-            border: '1px solid #ffc600'
+            textAlign: 'center'
           }}>
+            {/* Flight Status */}
             <div style={{
-              fontSize: '1rem',
-              color: '#ffc600',
-              marginBottom: '10px',
-              fontWeight: 'bold'
+              fontSize: '5rem',
+              fontWeight: 'bold',
+              color: getStatusColor(flightData?.Status),
+              marginBottom: '20px',
+              textTransform: 'uppercase',
+              letterSpacing: '3px'
             }}>
-              DEPARTURE
+              {flightData?.Status === 'On Time' ? 'Take a seat' : flightData?.Status?.toUpperCase() || 'BOARDING'}
             </div>
-            <div style={{
-              fontSize: '2rem',
-              fontWeight: 'bold'
-            }}>
-              {formatDateTime(flightData?.ScheduledDeparture)}
-            </div>
-          </div>
 
-          <div style={{
-            backgroundColor: '#2a2a2a',
-            padding: '30px',
-            borderRadius: '15px',
-            border: '1px solid #ffc600'
-          }}>
-            <div style={{
-              fontSize: '1rem',
-              color: '#ffc600',
-              marginBottom: '10px',
-              fontWeight: 'bold'
-            }}>
-              GATE
-            </div>
-            <div style={{
-              fontSize: '2rem',
-              fontWeight: 'bold'
-            }}>
-              {flightData?.Gate || 'TBA'}
-            </div>
-          </div>
-
-          <div style={{
-            backgroundColor: '#2a2a2a',
-            padding: '30px',
-            borderRadius: '15px',
-            border: '1px solid #ffc600'
-          }}>
-            <div style={{
-              fontSize: '1rem',
-              color: '#ffc600',
-              marginBottom: '10px',
-              fontWeight: 'bold'
-            }}>
-              TERMINAL
-            </div>
-            <div style={{
-              fontSize: '2rem',
-              fontWeight: 'bold'
-            }}>
-              {flightData?.Terminal || 'N/A'}
-            </div>
-          </div>
-
-          <div style={{
-            backgroundColor: '#2a2a2a',
-            padding: '30px',
-            borderRadius: '15px',
-            border: '1px solid #ffc600'
-          }}>
-            <div style={{
-              fontSize: '1rem',
-              color: '#ffc600',
-              marginBottom: '10px',
-              fontWeight: 'bold'
-            }}>
-              AIRLINE
-            </div>
-            <div style={{
-              fontSize: '1.2rem',
-              fontWeight: 'bold'
-            }}>
-              {flightData?.Airline?.toUpperCase() || 'N/A'}
-            </div>
+            {/* Additional Info */}
+            {flightData?.DelayMinutes > 0 && (
+              <div style={{
+                fontSize: '2rem',
+                color: '#FF9800',
+                marginTop: '20px'
+              }}>
+                Delayed by {flightData.DelayMinutes} minutes
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Delay Information */}
-        {flightData?.DelayMinutes > 0 && (
+        {/* Right Panel - Flight Info & Advertisement */}
+        <div style={{
+          flex: '1',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          {/* Flight Number & Gate */}
           <div style={{
-            marginTop: '40px',
-            backgroundColor: 'rgba(255, 152, 0, 0.1)',
-            border: '2px solid #FF9800',
-            borderRadius: '15px',
-            padding: '30px 50px',
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            color: '#FF9800'
+            padding: '40px',
+            textAlign: 'right'
           }}>
-            ⚠️ DELAYED BY {flightData.DelayMinutes} MINUTES
-          </div>
-        )}
-      </div>
+            {/* Flight Number */}
+            <div style={{
+              fontSize: '4rem',
+              fontWeight: 'bold',
+              color: '#fff',
+              marginBottom: '20px',
+              letterSpacing: '2px'
+            }}>
+              {flightData?.FlightNumber}
+            </div>
 
-      {/* Footer */}
-      <div style={{
-        background: '#1a1a1a',
-        padding: '15px',
-        textAlign: 'center',
-        color: '#666',
-        borderTop: '1px solid #333'
-      }}>
-        Updates every 30 seconds • Flight: {flightData?.FlightNumber}
+            {/* Gate */}
+            <div style={{
+              fontSize: '1.5rem',
+              color: '#ccc',
+              marginBottom: '10px'
+            }}>
+              Gate {flightData?.Gate || 'TBA'}
+            </div>
+
+            {/* Current Time */}
+            <div style={{
+              fontSize: '2rem',
+              color: '#87CEEB',
+              fontFamily: 'monospace'
+            }}>
+              {formatTime(currentTime)}
+            </div>
+          </div>
+
+          {/* Advertisement Space */}
+          <div style={{
+            flex: 1,
+            margin: '20px',
+            backgroundColor: '#1a1a1a',
+            borderRadius: '10px',
+            border: '2px solid #333',
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '200px'
+          }}>
+            {/* Ad Header */}
+            <div style={{
+              backgroundColor: '#333',
+              color: '#fff',
+              padding: '8px 15px',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              borderRadius: '8px 8px 0 0'
+            }}>
+              ADVERTISEMENT
+            </div>
+
+            {/* Ad Content Area */}
+            <div style={{
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              padding: '20px',
+              gap: '10px'
+            }}>
+              {/* Video Ad Area */}
+              <div style={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: '#2a2a2a',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '15px'
+              }}>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '8px'
+                  }}
+                >
+                  <source src="/sample-ad.mp4" type="video/mp4" />
+                </video>
+              </div>
+
+              {/* QR Code */}
+              <div style={{
+                textAlign: 'center'
+              }}>
+                <div style={{
+                  fontSize: '10px',
+                  color: '#666',
+                  marginBottom: '8px'
+                }}>
+                  SCAN QR CODE
+                </div>
+                <img
+                  src="/QR-New.jpeg"
+                  alt="QR Code"
+                  style={{
+                    width: '80px',
+                    height: '80px',
+                    objectFit: 'contain'
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
