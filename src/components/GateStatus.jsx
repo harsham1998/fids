@@ -1,5 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import indigoLogo from '../assets/indigo.jpeg';
+import airIndiaLogo from '../assets/air india.png';
+import airasiaLogo from '../assets/airasia.png';
+import americanLogo from '../assets/american.png';
+import britishAirwaysLogo from '../assets/british airways.jpeg';
+import emiratesLogo from '../assets/emirates.png';
+import klmLogo from '../assets/klm.jpeg';
+import lufthansaLogo from '../assets/lufthansa.png';
+import qatarLogo from '../assets/qatar.png';
+import spicejetLogo from '../assets/spicejet.png';
+import thaiLogo from '../assets/thai.png';
 
 function GateStatus() {
   const { flightNumber } = useParams();
@@ -182,14 +193,28 @@ function GateStatus() {
     );
   }
 
-  // Get airline logo similar to DeparturesBoard
+  // Get airline logo based on airline name
   const getAirlineLogo = (airlineName) => {
     if (!airlineName) return null;
 
     const name = airlineName.toLowerCase();
 
-    // This would need the actual logo imports, for now return placeholder
-    // You can import the airline logos from DeparturesBoard component
+    if (name.includes('indigo')) return indigoLogo;
+    if (name.includes('air india')) return airIndiaLogo;
+    if (name.includes('airasia') || name.includes('air asia')) return airasiaLogo;
+    if (name.includes('american')) return americanLogo;
+    if (name.includes('british airways')) return britishAirwaysLogo;
+    if (name.includes('emirates')) return emiratesLogo;
+    if (name.includes('klm')) return klmLogo;
+    if (name.includes('lufthansa')) return lufthansaLogo;
+    if (name.includes('qatar')) return qatarLogo;
+    if (name.includes('spicejet') || name.includes('spice jet')) return spicejetLogo;
+    if (name.includes('thai')) return thaiLogo;
+    if (name.includes('vistara')) return airIndiaLogo;
+    if (name.includes('alliance air')) return airIndiaLogo;
+    if (name.includes('gofirst')) return indigoLogo;
+    if (name.includes('blue dart')) return emiratesLogo;
+
     return null;
   };
 
@@ -202,19 +227,18 @@ function GateStatus() {
       display: 'flex',
       flexDirection: 'column'
     }}>
-      {/* Blue Header Area for Logo */}
+      {/* Blue Header Area with Logo, Flight Number, and Time */}
       <div style={{
         background: 'linear-gradient(135deg, #4169E1, #1E90FF)',
         height: '120px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        padding: '0 40px',
         position: 'relative'
       }}>
         {/* Airline Logo Area */}
         <div style={{
-          position: 'absolute',
-          left: '40px',
           display: 'flex',
           alignItems: 'center',
           gap: '20px'
@@ -224,14 +248,14 @@ function GateStatus() {
               src={getAirlineLogo(flightData?.Airline)}
               alt={flightData?.Airline}
               style={{
-                height: '60px',
+                height: '70px',
                 objectFit: 'contain'
               }}
             />
           ) : (
             <div style={{
-              width: '100px',
-              height: '60px',
+              width: '120px',
+              height: '70px',
               backgroundColor: 'rgba(255, 255, 255, 0.2)',
               borderRadius: '8px',
               display: 'flex',
@@ -243,6 +267,26 @@ function GateStatus() {
               AIRLINE LOGO
             </div>
           )}
+        </div>
+
+        {/* Flight Number */}
+        <div style={{
+          fontSize: '3.5rem',
+          fontWeight: 'bold',
+          color: '#fff',
+          letterSpacing: '2px'
+        }}>
+          {flightData?.FlightNumber}
+        </div>
+
+        {/* Current Time */}
+        <div style={{
+          fontSize: '2.5rem',
+          fontWeight: 'bold',
+          color: '#fff',
+          fontFamily: 'monospace'
+        }}>
+          {formatTime(currentTime)}
         </div>
       </div>
 
@@ -318,129 +362,84 @@ function GateStatus() {
           </div>
         </div>
 
-        {/* Right Panel - Flight Info & Advertisement */}
+        {/* Right Panel - Gate Info & Advertisement */}
         <div style={{
           flex: '1',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          padding: '20px'
         }}>
-          {/* Flight Number & Gate */}
+          {/* Gate Information */}
           <div style={{
-            padding: '40px',
-            textAlign: 'right'
+            padding: '30px',
+            textAlign: 'center',
+            backgroundColor: '#1a1a1a',
+            borderRadius: '10px',
+            border: '2px solid #ffc600',
+            marginBottom: '20px'
           }}>
-            {/* Flight Number */}
-            <div style={{
-              fontSize: '4rem',
-              fontWeight: 'bold',
-              color: '#fff',
-              marginBottom: '20px',
-              letterSpacing: '2px'
-            }}>
-              {flightData?.FlightNumber}
-            </div>
-
-            {/* Gate */}
             <div style={{
               fontSize: '1.5rem',
-              color: '#ccc',
-              marginBottom: '10px'
+              color: '#ffc600',
+              marginBottom: '10px',
+              fontWeight: 'bold'
             }}>
-              Gate {flightData?.Gate || 'TBA'}
+              GATE
             </div>
-
-            {/* Current Time */}
             <div style={{
-              fontSize: '2rem',
-              color: '#87CEEB',
-              fontFamily: 'monospace'
+              fontSize: '3rem',
+              fontWeight: 'bold',
+              color: '#fff'
             }}>
-              {formatTime(currentTime)}
+              {flightData?.Gate || 'TBA'}
             </div>
           </div>
 
-          {/* Advertisement Space */}
+          {/* Large Advertisement Space */}
           <div style={{
             flex: 1,
-            margin: '20px',
             backgroundColor: '#1a1a1a',
-            borderRadius: '10px',
-            border: '2px solid #333',
+            borderRadius: '15px',
+            border: '3px solid #333',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: '200px'
+            minHeight: '400px'
           }}>
             {/* Ad Header */}
             <div style={{
               backgroundColor: '#333',
               color: '#fff',
-              padding: '8px 15px',
-              fontSize: '12px',
+              padding: '12px 20px',
+              fontSize: '16px',
               fontWeight: 'bold',
               textAlign: 'center',
-              borderRadius: '8px 8px 0 0'
+              borderRadius: '12px 12px 0 0'
             }}>
               ADVERTISEMENT
             </div>
 
-            {/* Ad Content Area */}
+            {/* Large Video Ad Area */}
             <div style={{
               flex: 1,
+              padding: '20px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              padding: '20px',
-              gap: '10px'
+              justifyContent: 'center'
             }}>
-              {/* Video Ad Area */}
-              <div style={{
-                width: '100%',
-                height: '150px',
-                backgroundColor: '#2a2a2a',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '15px'
-              }}>
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '8px'
-                  }}
-                >
-                  <source src="/sample-ad.mp4" type="video/mp4" />
-                </video>
-              </div>
-
-              {/* QR Code */}
-              <div style={{
-                textAlign: 'center'
-              }}>
-                <div style={{
-                  fontSize: '10px',
-                  color: '#666',
-                  marginBottom: '8px'
-                }}>
-                  SCAN QR CODE
-                </div>
-                <img
-                  src="/QR-New.jpeg"
-                  alt="QR Code"
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    objectFit: 'contain'
-                  }}
-                />
-              </div>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '12px'
+                }}
+              >
+                <source src="/sample-ad.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
